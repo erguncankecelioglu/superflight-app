@@ -1,26 +1,31 @@
 package com.superflight1.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "flight")
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String departureAirport;
-    private String arrivalAirport;
+    @ManyToOne
+    private Airport departureAirport;
+
+    @ManyToOne
+    private Airport arrivalAirport;
+
     private LocalDateTime departureDateTime;
-    private LocalDateTime returnDateTime;
+    private LocalDateTime arrivalDateTime;
     private double price;
 }
 
